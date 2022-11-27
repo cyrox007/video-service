@@ -2,4 +2,6 @@
 
 {% include '^shared/header/style.css' %}
 
+{% include 'main/style.css' %}
+
 {% include '^shared/footer/style.css' %}
