@@ -4,4 +4,6 @@
 
 {% include 'main/style.css' %}
 
+{% include 'auth/register/style.css' %}
+
 {% include '^shared/footer/style.css' %}

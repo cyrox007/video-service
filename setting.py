@@ -15,3 +15,11 @@ class Config:
     def database_link():
         return f'postgresql://{Config.db_user}:{Config.db_password}@'\
                f'{Config.db_host}:{Config.db_port}/{Config.db_name}'
+
+    # User role
+    role: dict = {
+        'admin': 900,
+        'author': 800,
+        'moderator': 700,
+        'user': 100
+    }

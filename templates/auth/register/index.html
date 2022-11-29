@@ -1,0 +1,64 @@
+{% extends 'auth/index.html' %}
+
+{% set title = 'Registration' %}
+
+{% block content %}
+
+<section class="register">
+    <form action="" method="post" id="regForm" enctype="multipart/form-data">
+        <div class="tab">
+            <div class="field">
+                <input type="email" name="email" id="email" placeholder="Введите электронную почту" required>
+                <div class="status" id="email-check"></div>
+            </div>
+            <div class="field">
+                <input type="text" name="first-name" id="first-name" placeholder="Введите имя">
+                <div class="status" id="first-name-check"></div>
+            </div>
+            <div class="field">
+                <input type="text" name="surname" id="surname" placeholder="Введите фамилию">
+                <div class="status" id="surname"></div>
+            </div>
+        </div>
+
+        <div class="tab">
+            <div class="field">
+                <input type="text" name="nickname" id="nickname" placeholder="Выберете никнейм">
+                <div class="status" id="nickname-check"></div>
+            </div>
+            <div class="field">
+                <input type="password" name="password" id="password" placeholder="Введите пароль">
+                <div class="status" id="password-check"></div>
+            </div>
+            <div class="field">
+                <input type="password" name="repeat-password" id="repeat-password" placeholder="Повторите пароль">
+                <div class="status" id="repeat-password-check"></div>
+            </div>
+        </div>
+
+        <div class="tab" id="uploadContainer">
+            <input id="file-input" type="file" name="file">
+            <label for="file-input">Выберите файл</label>
+            <span>или перетащите его сюда</span>
+        </div>
+
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button type="button" id="prevBtn">Previous</button>
+                <button type="button" id="nextBtn">Next</button>
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:40px;">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+        </div>
+    </form>
+</section>
+
+<script>
+    {% include 'auth/register/script.js' %}
+</script>
+
+{% endblock %}

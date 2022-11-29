@@ -5,8 +5,12 @@
                 <img src="{{ url_for('static', filename='header/btn.svg') }}" alt="MENU">MENU
             </a>
             <div class="header__user-menu">
-                <a href="/">Войти</a>
-                <a href="/">Регистрация</a>
+                {% if session.get('login') is none %}
+                    <a href="/">Войти</a>
+                    <a href="{{ url_for('register') }}">Регистрация</a>
+                {% else %}
+                    <a href="/">Admin</a>
+                {% endif %}
             </div>
         </div>
         <div class="header__logo">
