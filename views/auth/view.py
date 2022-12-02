@@ -2,27 +2,32 @@ from flask.views import MethodView
 from flask import render_template, request
 
 from components.auth.decorators import get_session
+from components.auth.forms import RegisterForm
 from components.users.model import User
+from components.auth.avatar_upload import upload
 
 
 class RegisterPage(MethodView):
     def get(self):
-        return render_template("auth/register/index.html")
+        form = RegisterForm()
+        return render_template("auth/register/index.html", form=form)
 
     @get_session
     def post(self, db_session: 'db_session' = None):
-        data: dict = {
-            'email': request.form.get('email'),
-            'first-name': request.form.get('first-name'),
-            'last-name': request.form.get('surname'),
-            'nickname': request.form.get('nickname'),
-            'password': request.form.get('password'),
-            'avatar': request.files['file']
-        }
+        form = RegisterForm()
+        if form.validate_on_submit():
+            data: dict = {
+                'email': request.form.get('useremail'),
+                'first-name': request.form.get('firstname'),
+                'last-name': request.form.get('surname'),
+                'nickname': request.form.get('nickname'),
+                'password': request.form.get('password'),
+                'avatar': upload(request.files['avatar'])
+            }
+            print(data)
+            """ User.insert_new_user(db_session, data) """
 
-        print(data)
-
-        return render_template("auth/register/index.html")
+        return render_template("auth/register/index.html", form=form)
 
 
 class ValidEmail(MethodView):

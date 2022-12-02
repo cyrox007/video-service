@@ -1,45 +1,46 @@
 main.register = {
     data: {
         currentTab: 0,
+        tabContainer: document.querySelectorAll(".tab"),
         btnNext: document.getElementById('nextBtn'),
         btnPrev: document.getElementById('prevBtn'),
-        emailField: document.getElementById('email'),
+        emailField: document.getElementById('useremail'),
         nicknameField: document.getElementById('nickname'),
         passwordField: document.getElementById('password'),
-        passRepeatField: document.getElementById('repeat-password'),
-        fileField: document.getElementById('file-input')
+        passRepeatField: document.getElementById('passRepeat'),
+        fileField: document.getElementById('avatar')
     },
     handler: {
         nextPrev: (n) => {
-            // This function will figure out which tab to display
-            var x = document.getElementsByClassName("tab");
-            // Exit the function if any field in the current tab is invalid:
+            // Эта функция определит, какую вкладку отображать
+            let tabs = main.register.data.tabContainer;
+            // Выйдите из функции, если какое-либо поле на текущей вкладке является недопустимым:
             if (n == 1 && !main.register.handler.validateForm()) return false;
-            // Hide the current tab:
-            x[main.register.data.currentTab].style.display = "none";
-            // Increase or decrease the current tab by 1:
+            // Скрыть текущую вкладку:
+            tabs[main.register.data.currentTab].style.display = "none";
+            // Увеличьте или уменьшите текущую вкладку на 1:
             main.register.data.currentTab = main.register.data.currentTab + n;
-            // if you have reached the end of the form... :
-            if (main.register.data.currentTab >= x.length) {
-                //...the form gets submitted:
+            // если вы дошли до конца формы... :
+            if (main.register.data.currentTab >= tabs.length) {
+                // ...форма будет отправлена:
                 document.getElementById("regForm").submit();
                 return false;
             }
-            // Otherwise, display the correct tab:
+            // В противном случае отобразите правильную вкладку:
             main.register.methods.showTab(main.register.data.currentTab);
         },
         validateForm: () => {
-            // This function deals with validation of the form fields
+            // Эта функция занимается проверкой полей формы
             var x, y, i, valid = true;
             x = document.getElementsByClassName("tab");
             y = x[main.register.data.currentTab].getElementsByTagName("input");
-            // A loop that checks every input field in the current tab:
+            // Цикл, который проверяет каждое поле ввода на текущей вкладке:
             for (i = 0; i < y.length; i++) {
-                // If a field is empty...
+                // Если поле пустое...
                 if (y[i].value == "") {
-                    // add an "invalid" class to the field:
+                    // добавьте "invalid" класс в поле:
                     y[i].className += " invalid";
-                    // and set the current valid status to false:
+                    // и установите текущий допустимый статус на false:
                     valid = false;
                 }
             }
@@ -47,33 +48,33 @@ main.register = {
             if (valid) {
                 document.getElementsByClassName("step")[main.register.data.currentTab].className += " finish";
             }
-            return valid; // return the valid status
+            return valid; // верните действительный статус
         },
         fixStepIndicator: (n) => {
-            // This function removes the "active" class of all steps...
+            // Эта функция удаляет "активный" класс всех шагов...
             var i, x = document.getElementsByClassName("step");
             for (i = 0; i < x.length; i++) {
               x[i].className = x[i].className.replace(" active", "");
             }
-            //... and adds the "active" class to the current step:
+            // ... и добавляет "активный" класс к текущему шагу:
             x[n].className += " active";
         }
     },
     methods: {
         showTab: (n) => {
-            // This function will display the specified tab of the form ...
+            // Эта функция отобразит указанную вкладку формы ...
             var x = document.getElementsByClassName("tab");
             x[n].style.display = "flex";
-            // ... and fix the Previous/Next buttons:
+            // ... и исправьте кнопки "Предыдущий"/"Следующий":
             if (n == 0) {
                 document.getElementById("prevBtn").style.display = "none";
             } else {
                 document.getElementById("prevBtn").style.display = "inline";
             }
             if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "Submit";
+                document.getElementById("nextBtn").innerHTML = "Зарегестрироваться";
             } else {
-                document.getElementById("nextBtn").innerHTML = "Next";
+                document.getElementById("nextBtn").innerHTML = "Дальше";
             }
             // ... and run a function that displays the correct step indicator:
             main.register.handler.fixStepIndicator(n)
@@ -110,6 +111,7 @@ main.register = {
     }
 };
 (function () {
+    /* вызов функции шагов формы */
     main.register.methods.showTab(main.register.data.currentTab);
     main.register.data.btnNext.addEventListener('click', () => {
         main.register.handler.nextPrev(1)
@@ -118,7 +120,7 @@ main.register = {
         main.register.handler.nextPrev(-1)
     });
 
-    
+    /* Валидация форм */
     main.register.data.emailField.addEventListener('change', () => {
         let check = main.register.methods.validateEmail(main.register.data.emailField.value);
         check.then(result => {
@@ -165,30 +167,69 @@ main.register = {
         }
     })
 
-    let uploadContainer = document.getElementById('uploadContainer');
+    /* Загрузка файла */
+    /* let dropArea = document.getElementById("upload-container");
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, (e) => {
+            e.preventDefault();
+        }, false);
+    });
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, (e) => {
+            highlight(e);
+        }, false)
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, (e) => {
+            unhighlight(e);
+        }, false)
+    })
+    function highlight(e) {
+        dropArea.classList.add('highlight');
+    }
+    function unhighlight(e) {
+        dropArea.classList.remove('highlight');
+    }
+    dropArea.addEventListener('drop', (e) => {
+        handleDrop(e)
+    }, false);
+    function handleDrop(e) {
+        let fileInstance = e.dataTransfer.files;
+        if (fileInstance.type.startsWith('image/')) {
+            handleFiles(fileInstance);
+        } else {
+            alert('Можно загружать только изображения')
+            return false
+        }
+    }
+    function handleFiles(fileInstanceUpload) {
+        if (fileInstanceUpload != undefined) {
+            const dropZoneData = new FormData();
+            const xhr = new XMLHttpRequest();
 
-    uploadContainer.addEventListener('dragenter', (e) => {
-        e.preventDefault();
-        uploadContainer.classList.add('dragover');
-    });
+            dropZoneData.append('file', fileInstanceUpload)
 
-    uploadContainer.addEventListener('dragenter', (e) => {
-        e.preventDefault();
-        uploadContainer.classList.add('dragover');
-    });
+            xhr.upload.addEventListener('progress', function () {
+                hintText.classList.remove('upload-hint_visible')
+                loaderImage.classList.add('upload-loader_visible')
+            })
 
-    uploadContainer.addEventListener('dragleave', (e) => {
-        e.preventDefault();
-        uploadContainer.classList.remove('dragover');
-    });
+            xhr.open('POST', '', true)
 
-    uploadContainer.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadContainer.classList.remove('dragover');
-        let files = e.dataTransfer.files;
-    });
-    
-    main.register.data.fileField.addEventListener('change', () => {
-        let files = this.files;
-    });
+            xhr.send(dropZoneData)
+
+            xhr.onload = function (event) {
+                if (xhr.status == 200) {
+                    loaderImage.classList.remove('upload-loader_visible')
+                    outputText.textContent = `Файл «${fileInstanceUpload.name}» загружен успешно`
+                } else {
+                    loaderImage.classList.remove('upload-loader_visible')
+                    outputText.textContent = `Файл не загружен. Ошибка ${xhr.status} при загрузке файла.`
+                }
+            }
+        }
+    }
+    document.getElementById("fileElem").addEventListener('change', (e) => {
+        handleFiles(this.files);
+    }); */
 }());

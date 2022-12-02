@@ -38,63 +38,6 @@
 .register form input[type=password].invalid {
   background-color: #ffdddd;
 }
-.register form #uploadContainer {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 100%;
-  height: 400px;
-  outline: 2px dashed #5d5d5d;
-  outline-offset: -12px;
-  background-color: #e0f2f7;
-  font-family: "Segoe UI";
-  color: #1f3c44;
-  position: relative;
-  z-index: 10;
-  -webkit-transition: background-color 0.15s ease-in-out;
-  transition: background-color 0.15s ease-in-out;
-}
-.register form #uploadContainer input[type=file] {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  position: absolute;
-  z-index: -10;
-}
-.register form #uploadContainer input[type=file]:focus + label {
-  outline: -webkit-focus-ring-color auto 5px;
-  outline: 1px solid #0078d7;
-}
-.register form #uploadContainer img {
-  width: 40%;
-  margin-bottom: 20px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-.register form #uploadContainer label {
-  font-weight: bold;
-}
-.register form #uploadContainer label:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-.register form #uploadContainer label.focus {
-  outline: 1px solid #0078d7;
-  outline: -webkit-focus-ring-color auto 5px;
-}
-.register form #uploadContainer.dragover {
-  background-color: #fafafa;
-  outline-offset: -17px;
-}
 .register form .tab {
   width: 100%;
   display: none;
@@ -118,6 +61,35 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+.register form .tab #upload-container {
+  position: relative;
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  width: 480px;
+  font-family: sans-serif;
+  margin: 100px auto;
+  padding: 20px;
+}
+.register form .tab #upload-container.highlight {
+  border-color: purple;
+}
+.register form .tab #upload-container p {
+  margin-top: 0;
+}
+.register form .tab #upload-container #avatar {
+  display: none;
+}
+.register form .tab #upload-container .button {
+  display: inline-block;
+  padding: 10px;
+  background: #ccc;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.register form .tab #upload-container .button:hover {
+  background: #ddd;
 }
 .register form button {
   background-color: #4CAF50;

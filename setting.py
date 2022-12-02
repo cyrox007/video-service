@@ -2,7 +2,11 @@ import os
 
 
 class Config:
-    SECRET_KEY = b'blablabla'
+    # main
+    SECRET_KEY = os.environ.get('SECRET_KEY') or b'blablabla'
+    WTF_CSRF_SECRET_KEY = 'a random string'
+    RECAPTCHA_PUBLIC_KEY = 'test'
+    
     PATH_TO_DIR = os.path.dirname(os.path.abspath(__file__))
 
     # Database
@@ -23,3 +27,7 @@ class Config:
         'moderator': 700,
         'user': 100
     }
+    
+    # avatar
+    AVATAR_DIR = 'uploads/us_avatars/'
+    FULL_AVATAR_DIR = 'static/'+AVATAR_DIR

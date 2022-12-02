@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 from setting import Config
 from database import Database
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 class User(Database.Base):
     __tablename__ = 'users'
@@ -35,3 +37,18 @@ class User(Database.Base):
         return db_session.query(User).filter(
             User.nickname == nickname
         ).first()
+
+    @classmethod
+    def insert_new_user(cls, db_session: Session, data: dict):
+        new_user = User(
+            email = data['email'],
+            first_name = data['first-name'],
+            last_name = data['last-name'],
+            nickname = data['nickname'],
+            password = generate_password_hash(data['password'])
+        )
+        try:
+            db_session.add(new_user)
+            db_session.commit()
+        except Exception as e:
+            print(e)
