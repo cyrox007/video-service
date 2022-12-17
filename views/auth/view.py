@@ -1,10 +1,10 @@
 from flask.views import MethodView
-from flask import render_template, request
+from flask import render_template, request, flash
 
 from components.auth.decorators import get_session
 from components.auth.forms import RegisterForm
 from components.users.model import User
-from components.auth.avatar_upload import upload
+from components.auth.avatar_upload import avatar_processing
 
 
 class RegisterPage(MethodView):
@@ -22,9 +22,11 @@ class RegisterPage(MethodView):
                 'last-name': request.form.get('surname'),
                 'nickname': request.form.get('nickname'),
                 'password': request.form.get('password'),
-                'avatar': upload(request.files['avatar'])
+                'avatar': avatar_processing(request.files['avatar'])
             }
             print(data)
+        else: 
+            flash("При заполнении формы вы допустили ошибку")
             """ User.insert_new_user(db_session, data) """
 
         return render_template("auth/register/index.html", form=form)

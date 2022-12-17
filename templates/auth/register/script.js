@@ -72,9 +72,11 @@ main.register = {
                 document.getElementById("prevBtn").style.display = "inline";
             }
             if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "Зарегестрироваться";
+                document.getElementById('nextBtn').style.display = 'none';
+                document.querySelector('input[type=submit]').style.display = 'inline';
             } else {
-                document.getElementById("nextBtn").innerHTML = "Дальше";
+                document.getElementById('nextBtn').style.display = 'inline';
+                document.querySelector('input[type=submit]').style.display = 'none';
             }
             // ... and run a function that displays the correct step indicator:
             main.register.handler.fixStepIndicator(n)
@@ -157,7 +159,7 @@ main.register = {
         }
     });
 
-    main.register.data.passRepeatField.addEventListener('change', () => {
+    main.register.data.passRepeatField.addEventListener('input', () => {
         if (main.register.data.passwordField.value === main.register.data.passRepeatField.value) {
             document.getElementById('repeat-password-check').innerText = 'ok';
             main.register.data.btnNext.disabled = false;
@@ -168,68 +170,5 @@ main.register = {
     })
 
     /* Загрузка файла */
-    /* let dropArea = document.getElementById("upload-container");
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, (e) => {
-            e.preventDefault();
-        }, false);
-    });
-    ['dragenter', 'dragover'].forEach(eventName => {
-        dropArea.addEventListener(eventName, (e) => {
-            highlight(e);
-        }, false)
-    });
-    ['dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, (e) => {
-            unhighlight(e);
-        }, false)
-    })
-    function highlight(e) {
-        dropArea.classList.add('highlight');
-    }
-    function unhighlight(e) {
-        dropArea.classList.remove('highlight');
-    }
-    dropArea.addEventListener('drop', (e) => {
-        handleDrop(e)
-    }, false);
-    function handleDrop(e) {
-        let fileInstance = e.dataTransfer.files;
-        if (fileInstance.type.startsWith('image/')) {
-            handleFiles(fileInstance);
-        } else {
-            alert('Можно загружать только изображения')
-            return false
-        }
-    }
-    function handleFiles(fileInstanceUpload) {
-        if (fileInstanceUpload != undefined) {
-            const dropZoneData = new FormData();
-            const xhr = new XMLHttpRequest();
-
-            dropZoneData.append('file', fileInstanceUpload)
-
-            xhr.upload.addEventListener('progress', function () {
-                hintText.classList.remove('upload-hint_visible')
-                loaderImage.classList.add('upload-loader_visible')
-            })
-
-            xhr.open('POST', '', true)
-
-            xhr.send(dropZoneData)
-
-            xhr.onload = function (event) {
-                if (xhr.status == 200) {
-                    loaderImage.classList.remove('upload-loader_visible')
-                    outputText.textContent = `Файл «${fileInstanceUpload.name}» загружен успешно`
-                } else {
-                    loaderImage.classList.remove('upload-loader_visible')
-                    outputText.textContent = `Файл не загружен. Ошибка ${xhr.status} при загрузке файла.`
-                }
-            }
-        }
-    }
-    document.getElementById("fileElem").addEventListener('change', (e) => {
-        handleFiles(this.files);
-    }); */
+    //
 }());

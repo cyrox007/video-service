@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 
-from wtforms import StringField, PasswordField, EmailField
+from wtforms import StringField, PasswordField, EmailField, SubmitField
 from wtforms.validators import DataRequired, Email
 
 
@@ -48,5 +48,7 @@ class RegisterForm(FlaskForm):
                 'Images only!'
             )
     ])
+
+    submit = SubmitField("Зарегестрироваться")
 
     """ recaptcha = RecaptchaField() """

@@ -7,10 +7,10 @@ def install(app: Flask):
         view_func=view.RegisterPage.as_view('register')
     )
     app.add_url_rule(
-        '/valid-email',
+        '/register/valid-email',
         view_func=view.ValidEmail.as_view('valid-email')
     )
     app.add_url_rule(
-        '/valid-nickname',
+        '/register/valid-nickname',
         view_func=view.ValidNickname.as_view('valid-nickname')
     )

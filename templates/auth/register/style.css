@@ -4,6 +4,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -26,7 +30,6 @@
 .register form input[type=text],
 .register form input[type=email],
 .register form input[type=password] {
-  margin-bottom: 10px;
   padding: 10px;
   width: 100%;
   font-size: 17px;
@@ -37,6 +40,11 @@
 .register form input[type=email].invalid,
 .register form input[type=password].invalid {
   background-color: #ffdddd;
+}
+.register form .hint {
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #585858;
 }
 .register form .tab {
   width: 100%;
@@ -87,11 +95,14 @@
   cursor: pointer;
   border-radius: 5px;
   border: 1px solid #ccc;
+  -webkit-transition: background 0.15s ease;
+  transition: background 0.15s ease;
 }
 .register form .tab #upload-container .button:hover {
   background: #ddd;
 }
-.register form button {
+.register form button,
+.register form input[type=submit] {
   background-color: #4CAF50;
   color: #ffffff;
   border: none;
@@ -102,7 +113,8 @@
   -webkit-transition: background 0.2s ease;
   transition: background 0.2s ease;
 }
-.register form button:disabled {
+.register form button:disabled,
+.register form input[type=submit]:disabled {
   background: grey;
 }
 .register form .step {
