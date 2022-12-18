@@ -1,8 +1,8 @@
 from flask.views import MethodView
 from flask import render_template, request, flash, redirect, url_for, session
 
-from components.auth.decorators import get_session
-from components.auth.forms import RegisterForm
+from components.auth.decorators import get_session, login_required
+from components.auth.forms import RegisterForm, LoginForm
 from components.users.model import User
 from components.auth.avatar_upload import avatar_processing
 
@@ -32,6 +32,40 @@ class RegisterPage(MethodView):
             
 
         return render_template("auth/register/index.html", form=form)
+
+
+class LoginPage(MethodView):
+    def get(self):
+        form = LoginForm()
+        return render_template(
+            'auth/login/index.html', 
+            form=form
+            )
+
+    @get_session
+    def post(self, db_session: 'db_session' = None):
+        form = LoginForm()
+
+        useremail = request.form.get('useremail')
+        password = request.form.get('password')
+
+        userdata = User.login_user(db_session, useremail, password)
+        if userdata is None:
+            flash('Неверный логин или пароль')
+            return render_template('/auth/login/index.html', form=form)
+
+        session['login'] = userdata.nickname
+        return redirect(url_for('index'))
+
+
+class LogoutFunc(MethodView):
+    @login_required
+    def get(self, login: 'login' = None):
+        session.clear()
+        return redirect(url_for('index'))
+
+
+
 
 
 class ValidEmail(MethodView):

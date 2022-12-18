@@ -10,6 +10,7 @@
                     <a href="{{ url_for('register') }}">Регистрация</a>
                 {% else %}
                     <a href="/">{{ user.nickname }}</a>
+                    <a href="{{ url_for('logout') }}">Выход</a>
                 {% endif %}
             </div>
         </div>

@@ -5,5 +5,6 @@
 {% include 'main/style.css' %}
 
 {% include 'auth/register/style.css' %}
+{% include 'auth/login/style.css' %}
 
 {% include '^shared/footer/style.css' %}

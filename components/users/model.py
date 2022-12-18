@@ -19,14 +19,24 @@ class User(Database.Base):
     last_name = Column(String(), nullable=False)
     avatar = Column(String(), nullable=False)
 
-    """ def __repr__(self):
-        return f"User {self.id}" """
+    def __repr__(self):
+        return f"User {self.id}"
 
     @classmethod
     def get_user(cls, db_session: Session, login):
         return db_session.query(User).filter(
             User.nickname == login
         ).first()
+
+    @classmethod
+    def login_user(cls, db_session: Session, email, password):
+        user = db_session.query(User).filter(
+            User.email == email
+        ).first()
+        if check_password_hash(user.password, password):
+            return user
+
+        return None
 
     @classmethod
     def check_user_by_email(cls, db_session: Session, email):

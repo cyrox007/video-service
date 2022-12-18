@@ -52,3 +52,19 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Зарегестрироваться")
 
     """ recaptcha = RecaptchaField() """
+
+
+class LoginForm(FlaskForm):
+    useremail = EmailField(
+        "Email",
+        validators=[DataRequired(), Email()],
+        render_kw={
+            "placeholder": "Введите электронную почту"
+            })
+
+    password = PasswordField(
+        "Пароль", 
+        validators=[DataRequired()], 
+        render_kw={"placeholder": "Введите пароль"})
+
+    submit = SubmitField("Войти")

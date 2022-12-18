@@ -110,8 +110,12 @@
   font-size: 17px;
   font-family: Raleway;
   cursor: pointer;
-  -webkit-transition: background 0.2s ease;
-  transition: background 0.2s ease;
+  -webkit-transition: background 0.2s ease, opacity 0.2s ease;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+.register form button:hover,
+.register form input[type=submit]:hover {
+  opacity: 0.8;
 }
 .register form button:disabled,
 .register form input[type=submit]:disabled {

@@ -7,6 +7,14 @@ def install(app: Flask):
         view_func=view.RegisterPage.as_view('register')
     )
     app.add_url_rule(
+        '/login',
+        view_func=view.LoginPage.as_view('login')
+    )
+    app.add_url_rule(
+        '/logout',
+        view_func=view.LogoutFunc.as_view('logout')
+    )
+    app.add_url_rule(
         '/register/valid-email',
         view_func=view.ValidEmail.as_view('valid-email')
     )
