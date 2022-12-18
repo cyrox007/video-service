@@ -1,5 +1,5 @@
 from flask.views import MethodView
-from flask import render_template, request, flash
+from flask import render_template, request, flash, redirect, url_for, session
 
 from components.auth.decorators import get_session
 from components.auth.forms import RegisterForm
@@ -24,10 +24,12 @@ class RegisterPage(MethodView):
                 'password': request.form.get('password'),
                 'avatar': avatar_processing(request.files['avatar'])
             }
-            print(data)
+            if User.insert_new_user(db_session, data):
+                session['login'] = data['nickname']
+                return redirect(url_for('index'))
         else: 
             flash("При заполнении формы вы допустили ошибку")
-            """ User.insert_new_user(db_session, data) """
+            
 
         return render_template("auth/register/index.html", form=form)
 

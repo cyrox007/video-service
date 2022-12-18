@@ -9,6 +9,7 @@ def login_required(view):
         if session.get('login') is None:
             return redirect(url_for('login'))
         
+        kwargs['login'] = session.get('login')
         return view(*args, **kwargs)
 
     return wrapped_view

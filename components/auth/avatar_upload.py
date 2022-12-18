@@ -2,15 +2,17 @@ from werkzeug.utils import secure_filename
 from setting import Config
 import os
 import cv2
+from datetime import datetime
 
-def image_verification_and_processing(img, filename):
+def image_verification_and_processing(img, filename) -> str:
     loaded_img = cv2.imread(img, cv2.IMREAD_COLOR)
     cropped_image = crop_image(loaded_img)
     changed_size_img = resize(cropped_image)
-
-    new_file_path = os.path.join(Config.FULL_AVATAR_DIR, filename+'.webp')
-    cv2.imwrite(new_file_path, changed_size_img, [cv2.IMWRITE_WEBP_QUALITY])
-    return new_file_path
+    new_filename: str = "photo_"+str(hash(filename))+".webp"
+    full_path_file = os.path.join(Config.FULL_AVATAR_DIR, new_filename) # путь для сохранения
+    path_to_the_file = os.path.join(Config.AVATAR_DIR, new_filename) # путь для БД
+    cv2.imwrite(full_path_file, changed_size_img, [cv2.IMWRITE_WEBP_QUALITY]) # Сохраняем
+    return path_to_the_file
 
 def resize(img, interp=cv2.INTER_LINEAR):
     new_width = 150 
@@ -51,7 +53,7 @@ def crop_image(img: cv2.imread):
         return img[0:himg, begin_coord_x:end_coord_x]
 
     
-def temporary_saving(file):
+def temporary_saving(file) -> str:
     temp_filepath = os.path.join(
         Config.PATH_TO_DIR+'/static/uploads/av_temp/', 
         secure_filename(file.filename)
@@ -59,7 +61,7 @@ def temporary_saving(file):
     file.save(temp_filepath)
     return temp_filepath
 
-def avatar_processing(file):
+def avatar_processing(file) -> str:
     if file.filename == '':
         return 'uploads/us_avatars/user_default.jpg'
     
