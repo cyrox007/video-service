@@ -11,16 +11,16 @@ class User(Database.Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    email = Column(String(50), nullable=False, unique=True)
-    nickname = Column(String(50), nullable=False)
-    password = Column(String(50), nullable=False)
+    email = Column(String(), nullable=False, unique=True)
+    nickname = Column(String(), nullable=False)
+    password = Column(String(), nullable=False)
     user_role = Column(Integer, nullable=False)
-    first_name = Column(String(50), nullable=False)
-    last_name = Column(String(50), nullable=False)
-    avatar = Column(String(50), nullable=False)
+    first_name = Column(String(), nullable=False)
+    last_name = Column(String(), nullable=False)
+    avatar = Column(String(), nullable=False)
 
-    def __repr__(self):
-        return f"User {self.id}"
+    """ def __repr__(self):
+        return f"User {self.id}" """
 
     @classmethod
     def get_user(cls, db_session: Session, login):
