@@ -6,10 +6,10 @@
             </a>
             <div class="header__user-menu">
                 {% if session.get('login') is none %}
-                    <a href="/">Войти</a>
+                    <a href="{{ url_for('login') }}">Войти</a>
                     <a href="{{ url_for('register') }}">Регистрация</a>
                 {% else %}
-                    <a href="/">{{ user.nickname }}</a>
+                    <a href="{{ url_for('profile', nickname=session.get('login')) }}">{{ user.nickname }}</a>
                     <a href="{{ url_for('logout') }}">Выход</a>
                 {% endif %}
             </div>

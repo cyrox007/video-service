@@ -5,10 +5,9 @@ from components.users.model import User
 
 
 class MainPage(MethodView):
-    @login_required
     @get_session
-    def get(self, login: 'login' = None, db_session: 'db_session' = None):
-        user_data = User.get_user(db_session, login)
+    def get(self, db_session: 'db_session' = None):
+        user_data = User.get_user(db_session, session.get('login'))
         return render_template(
             "/main/index.html", 
             user=user_data

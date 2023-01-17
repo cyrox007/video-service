@@ -7,4 +7,8 @@
 {% include 'auth/register/style.css' %}
 {% include 'auth/login/style.css' %}
 
+{% include 'profile/style.css' %}
+
+{% include 'videos/upload/style.css' %}
+
 {% include '^shared/footer/style.css' %}

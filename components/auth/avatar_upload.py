@@ -2,7 +2,6 @@ from werkzeug.utils import secure_filename
 from setting import Config
 import os
 import cv2
-from datetime import datetime
 
 def image_verification_and_processing(img, filename) -> str:
     loaded_img = cv2.imread(img, cv2.IMREAD_COLOR)

@@ -22,6 +22,8 @@ fileConfig(config.config_file_name)
 from components.users.model import User
 target_metadata = User.__table__.metadata
 
+from components.videos.models import Videos
+
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")

@@ -1,0 +1,27 @@
+{% extends '^core/base.html' %}
+
+{% set title = 'Загрузить видео' %}
+
+{% block content %}
+
+<section class="videos-upload">
+    <div class="container">
+        <form id="upload-form" action="" enctype="multipart/form-data">
+            <div class="field">
+                <label for="input-file" class="input-file">
+                    Загрузите файл видео
+                    <input id="input-file" type="file" name="file">		
+	   	            <span>Выберите файл</span>
+                </label>
+            </div>
+        </form>
+        <div id="progress-bar">
+            <span></span>
+        </div>
+    </div>
+</section>
+<script>
+    {% include 'videos/upload/script.js' %}
+</script>
+
+{% endblock %}

@@ -23,7 +23,7 @@ class User(Database.Base):
         return f"User {self.id}"
 
     @classmethod
-    def get_user(cls, db_session: Session, login):
+    def get_user(cls, db_session: Session, login) -> dict:
         return db_session.query(User).filter(
             User.nickname == login
         ).first()

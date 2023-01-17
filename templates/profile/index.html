@@ -1,0 +1,28 @@
+{% extends '^core/base.html' %}
+
+{% set title = user.nickname %}
+
+{% block content %}
+<section class="profile">
+    <div class="container">
+        <div class="profile__header">
+            <div class="profile__avatar">
+                <img src="{{ url_for('static', filename=user.avatar) }}" width="150" height="150" alt="{{ user.nickname }}">
+            </div>
+            <div class="profile__user-data">
+                <h1>Пользователь: {{ user.nickname }}</h1>
+                <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                <h4>{{ user.email }}</h4>
+                {% if user.user_role >= 900 %}
+                    <h4>ADMIN</h4>
+                {% else %}
+                    <h4>User</h4>
+                {% endif %}
+            </div>
+        </div>
+        <div class="profile__menu">
+            <a href="{{ url_for('video-upload') }}">Загрузить видео</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

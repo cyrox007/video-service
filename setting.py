@@ -1,4 +1,5 @@
 import os
+from redis import Redis
 
 
 class Config:
@@ -19,6 +20,10 @@ class Config:
     def database_link():
         return f'postgresql://{Config.db_user}:{Config.db_password}@'\
                f'{Config.db_host}:{Config.db_port}/{Config.db_name}'
+
+    # Redis
+    REDIS_URL = 'redis://localhost:6379/0'
+    redis = Redis()
 
     # User role
     role: dict = {
