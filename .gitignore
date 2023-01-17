@@ -2,3 +2,8 @@ __pycache__/
 venv/
 *.scss
 celerybeat-schedule
+
+static/uploads/av_temp/*
+static/uploads/us_avatars/*
+static/uploads/us_videos/*
+static/uploads/v_temp/*

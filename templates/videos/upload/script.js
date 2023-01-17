@@ -9,7 +9,8 @@ main.videoloader = {
         progressBarContainer: document.getElementById('progress-bar'),
         progressBar: () => {
             return main.videoloader.data.progressBarContainer.querySelector('span');
-        }
+        },
+        formFields: document.querySelectorAll('.videos-upload__form--field')
     },
     handler: {
         checkVideo: () => {
@@ -27,13 +28,17 @@ main.videoloader = {
             let math = Math.round((100 - (x / y)) * 100) / 100;
             let result = math+'%';
             return result;
+        },
+        prefilling_out_form: (file) => {
+            let name = document.getElementById('video_name');
+            name.value = file.name;
         }
     },
     methods: {
         videoUploader: (file) => {
             let formData = new FormData();
             formData.append("myfile", file);
-
+            main.videoloader.handler.prefilling_out_form(file);
             let xhr = new XMLHttpRequest();
             
             // отслеживаем процесс отправки
@@ -44,7 +49,6 @@ main.videoloader = {
                 bar.classList.add('loaded');
                 bar.style.width = main.videoloader.handler.percentMath(event.total, event.loaded);
                 bar.textContent = 'Загрузка '+main.videoloader.handler.percentMath(event.total, event.loaded);
-                console.log(event.loaded + ' / ' + event.total);
             };
 
             // Ждём завершения: неважно, успешного или нет
@@ -71,6 +75,10 @@ main.videoloader = {
                     main.videoloader.data.progressBar().classList.add('success');
                     main.videoloader.data.progressBar().style.width = '100%';
                     main.videoloader.data.progressBar().textContent = "Загрузка завершена";
+                    let wrng = document.getElementById('warning');
+                    wrng.innerText = "Видео загружено, и начата его обработка, теперь форму можно закрыть. Не забудьте сохранить изменения";
+                    wrng.classList.remove('grey');
+                    wrng.classList.add('green');
                 }
             };
         }
@@ -79,5 +87,14 @@ main.videoloader = {
 (function () {
     main.videoloader.data.inputVideo.addEventListener('change', () => {
         main.videoloader.handler.checkVideo();
+    });
+    main.videoloader.data.formFields.forEach(el=>{
+        let input = el.querySelector('input[type=text]');
+        if (input != null){
+            input.addEventListener('focus', (e)=>{
+                el.classList.toggle('focus');
+                console.log(e);
+            })
+        }
     });
 }());

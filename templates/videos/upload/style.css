@@ -124,3 +124,65 @@
 .videos-upload #progress-bar span.error {
   background: #914141;
 }
+.videos-upload__form {
+  width: 100%;
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.videos-upload__form p {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  color: #000;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.videos-upload__form p.grey {
+  background: rgb(216, 216, 216);
+  -webkit-box-shadow: 0 0 5px grey;
+          box-shadow: 0 0 5px grey;
+}
+.videos-upload__form p.green {
+  background: rgb(147, 216, 130);
+  -webkit-box-shadow: 0 0 5px green;
+          box-shadow: 0 0 5px green;
+}
+.videos-upload__form form {
+  margin-top: 10px;
+}
+.videos-upload__form--field {
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 10px;
+  border: 2px solid #eee;
+}
+.videos-upload__form--field input[type=text],
+.videos-upload__form--field textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+.videos-upload__form--field label {
+  color: grey;
+}
+.videos-upload__form--field.focus {
+  border: 2px solid rgb(131, 216, 255);
+}

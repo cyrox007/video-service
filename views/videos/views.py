@@ -5,6 +5,7 @@ from components.auth.decorators import login_required, get_session
 from components.users.model import User
 from components.videos.handler import temporary_video_loading
 from components.videos.tasks import video_processing
+from components.videos.forms import VideoForm
 
 
 class VideoUploadPage(MethodView):
@@ -12,9 +13,11 @@ class VideoUploadPage(MethodView):
     @get_session
     def get(self, login: 'login' = None, db_session: 'db_session' = None):
         user = User.get_user(db_session, login)
+        form = VideoForm()
         return render_template(
             '/videos/upload/index.html',
-            user=user
+            user=user,
+            form=form
         )
     
     @get_session

@@ -30,6 +30,7 @@ header .header__nav {
   border-bottom: 1px solid grey;
 }
 header .header__burger {
+  cursor: pointer;
   padding: 15px 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -41,6 +42,7 @@ header .header__burger {
       -ms-flex-pack: center;
           justify-content: center;
   font-family: var(--font-main);
+  text-transform: uppercase;
 }
 header .header__burger img {
   margin-right: 10px;

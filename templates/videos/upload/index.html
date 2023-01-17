@@ -18,6 +18,21 @@
         <div id="progress-bar">
             <span></span>
         </div>
+        <div class="videos-upload__form">
+            <p class="grey" id="warning">Не закрывайте страницу до окончания загрузки</p>
+            <form action="" method="post">
+                {{ form.csrf_token }}
+                <div class="videos-upload__form--field">
+                    {{ form.video_name.label }} {{ form.video_name(size=20) }}
+                </div>
+                <div class="videos-upload__form--file">
+                    {{ form.video_cover }}
+                </div>
+                <div class="videos-upload__form--field">
+                    {{ form.video_description.label }} {{ form.video_description(size=250) }}
+                </div>
+            </form>
+        </div>
     </div>
 </section>
 <script>
