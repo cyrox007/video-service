@@ -8,7 +8,7 @@ from components.users.model import User
 class ProfilePage(MethodView):
     @login_required
     @get_session
-    def get(self, login: 'login' = None, db_session: 'db_session' = None, nickname = None):
+    def get(self, login: 'login' = None, db_session: 'db_session' = None, nickname=None):
         user_data: dict = User.get_user(db_session, login)
         return render_template(
             '/profile/index.html',

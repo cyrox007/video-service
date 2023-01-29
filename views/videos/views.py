@@ -19,7 +19,7 @@ class VideoUploadPage(MethodView):
             user=user,
             form=form
         )
-    
+
     @get_session
     def post(self, db_session: 'db_session' = None):
         user = User.get_user(db_session, session.get('login'))
