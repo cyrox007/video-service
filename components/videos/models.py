@@ -26,11 +26,11 @@ class Videos(Database.Base):
     @classmethod
     def insert_new_video(self, db_session: Session, data: list):
         new_video = Videos(
-            status = 0,
-            video_name = data['name'],
-            video_description = data['description'],
-            video_filepath = data['filepath'],
-            user_id = data['user_id']
+            status=0,
+            video_name=data['name'],
+            video_description=data['description'],
+            video_filepath=data['filepath'],
+            user_id=data['user_id']
         )
         try:
             db_session.add(new_video)

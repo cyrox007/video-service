@@ -15,8 +15,8 @@ main.videoloader = {
     handler: {
         checkVideo: () => {
             let file = main.videoloader.data.inputVideo.files[0];
-            main.videoloader.data.videoTypes.every(el=>{
-                let typ = 'video/'+el;
+            main.videoloader.data.videoTypes.every(el => {
+                let typ = 'video/' + el;
                 if (file.type == typ) {
                     main.videoloader.methods.videoUploader(file);
                 } else {
@@ -26,7 +26,7 @@ main.videoloader = {
         },
         percentMath: (x, y) => {
             let math = Math.round((100 - (x / y)) * 100) / 100;
-            let result = math+'%';
+            let result = math + '%';
             return result;
         },
         prefilling_out_form: (file) => {
@@ -40,19 +40,19 @@ main.videoloader = {
             formData.append("myfile", file);
             main.videoloader.handler.prefilling_out_form(file);
             let xhr = new XMLHttpRequest();
-            
+
             // отслеживаем процесс отправки
-            xhr.upload.onprogress = function(event) {
+            xhr.upload.onprogress = function (event) {
                 main.videoloader.data.uploadForm.classList.add('hidden');
                 main.videoloader.data.progressBarContainer.classList.add('active');
                 let bar = main.videoloader.data.progressBarContainer.querySelector('span');
                 bar.classList.add('loaded');
                 bar.style.width = main.videoloader.handler.percentMath(event.total, event.loaded);
-                bar.textContent = 'Загрузка '+main.videoloader.handler.percentMath(event.total, event.loaded);
+                bar.textContent = 'Загрузка ' + main.videoloader.handler.percentMath(event.total, event.loaded);
             };
 
             // Ждём завершения: неважно, успешного или нет
-            xhr.onloadend = function() {
+            xhr.onloadend = function () {
                 if (xhr.status == 200) {
                     console.log("Успех");
                 } else {
@@ -64,9 +64,9 @@ main.videoloader = {
             };
 
             xhr.open("POST", "{{ url_for('video-upload') }}");
-            
+
             xhr.send(formData);
-            
+
             xhr.onload = () => {
                 let response = JSON.parse(xhr.response);
                 if (response.ok == 'ok') {
@@ -88,10 +88,10 @@ main.videoloader = {
     main.videoloader.data.inputVideo.addEventListener('change', () => {
         main.videoloader.handler.checkVideo();
     });
-    main.videoloader.data.formFields.forEach(el=>{
+    main.videoloader.data.formFields.forEach(el => {
         let input = el.querySelector('input[type=text]');
-        if (input != null){
-            input.addEventListener('focus', (e)=>{
+        if (input != null) {
+            input.addEventListener('focus', (e) => {
                 el.classList.toggle('focus');
                 console.log(e);
             })
